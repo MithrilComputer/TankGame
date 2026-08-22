@@ -9,6 +9,7 @@ namespace Tanks.Complete
         public Rigidbody m_Shell;                   // Prefab of the shell.
         public Transform m_FireTransform;           // A child of the tank where the shells are spawned.
         public Slider m_AimSlider;                  // A child of the tank that displays the current launch force.
+        public Image fill;
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
         public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
@@ -123,12 +124,14 @@ namespace Tanks.Complete
             // The slider should have a default value of the minimum launch force.
             m_AimSlider.value = m_BaseMinLaunchForce;
 
+            fill.enabled = false;
+
             // If the max force has been exceeded and the shell hasn't yet been launched...
             if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
             {
                 // ... use the max force and launch the shell.
                 m_CurrentLaunchForce = m_MaxLaunchForce;
-                Fire ();
+                Fire();
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
             else if (m_IsCharging && !m_Fired)
@@ -142,7 +145,7 @@ namespace Tanks.Complete
             else if (fireAction.WasReleasedThisFrame() && !m_Fired)
             {
                 // ... launch the shell.
-                Fire ();
+                Fire();
                 m_IsCharging = false;
             }
         }
@@ -154,7 +157,9 @@ namespace Tanks.Complete
             {
                 m_ShotCooldownTimer -= Time.deltaTime;
             }
-            
+
+            fill.enabled = false;
+
             // The slider should have a default value of the minimum launch force.
             m_AimSlider.value = m_BaseMinLaunchForce;
 
@@ -164,6 +169,7 @@ namespace Tanks.Complete
                 // ... use the max force and launch the shell.
                 m_CurrentLaunchForce = m_MaxLaunchForce;
                 Fire ();
+                fill.enabled = false;
             }
             // Otherwise, if the fire button has just started being pressed...
             else if (m_ShotCooldownTimer <= 0 && fireAction.WasPressedThisFrame())
@@ -175,6 +181,7 @@ namespace Tanks.Complete
                 // Change the clip to the charging clip and start it playing.
                 m_ShootingAudio.clip = m_ChargingClip;
                 m_ShootingAudio.Play ();
+                fill.enabled = true;
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
             else if (fireAction.IsPressed() && !m_Fired)
@@ -183,6 +190,7 @@ namespace Tanks.Complete
                 m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
 
                 m_AimSlider.value = m_CurrentLaunchForce;
+                fill.enabled = true;
             }
             // Otherwise, if the fire button is released and the shell hasn't been launched yet...
             else if (fireAction.WasReleasedThisFrame() && !m_Fired)
