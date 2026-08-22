@@ -13,6 +13,8 @@ namespace Tanks.Complete
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         [Tooltip("The speed in unity unit/second the tank move at")]
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
+        public float maxVelocity = 12f;                 // The maximum speed the tank can reach
+        public float drag = 0.5f;                     // The drag applied to the tank when no input is given
         [Tooltip("The speed in deg/s that tank will rotate at")]
         public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
         [Tooltip("If set to true, the tank auto orient and move toward the pressed direction instead of rotating on left/right and move forward on up")]
@@ -25,7 +27,10 @@ namespace Tanks.Complete
         public bool m_IsComputerControlled = false; // Is this tank player or computer controlled
         [HideInInspector]
         public TankInputUser m_InputUser;            // The Input User component for that tanks. Contains the Input Actions.
-        
+
+        private Vector3 velocity = new Vector3();
+
+
         public Rigidbody Rigidbody => m_Rigidbody;
         
         public int ControlIndex { get; set; } = -1; //this define the index of the control 1 = left keyboard or pad, 2 = right keyboard, -1 = no control
@@ -241,12 +246,19 @@ namespace Tanks.Complete
                 // in normal "tank control" the speed value is how much we press "up/forward"
                 speedInput = m_MovementInputValue;
             }
-            
+
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-            Vector3 movement = transform.forward * speedInput * m_Speed;
+            velocity += transform.forward * speedInput * m_Speed;
+
+            if(velocity.magnitude >= maxVelocity)
+            {
+                velocity = velocity.normalized * maxVelocity;
+            }
+
+            velocity -= velocity * drag;
 
             // Apply this movement to the rigidbody's position.
-            m_Rigidbody.linearVelocity = movement + m_ExplosionForceValue;
+            m_Rigidbody.linearVelocity = velocity + m_ExplosionForceValue;
             m_ExplosionForceValue = Vector3.Lerp(m_ExplosionForceValue, Vector3.zero, Time.deltaTime * 3f); // 3f = braking speed
         }
 
