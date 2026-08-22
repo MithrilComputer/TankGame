@@ -290,7 +290,7 @@ Transform:
   m_GameObject: {fileID: 4694738560766640894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.86, y: 0.02, z: 0.38}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -563,9 +563,9 @@ MonoBehaviour:
   m_ShootingAudio: {fileID: 1131688752345617369}
   m_ChargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
   m_FireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
-  m_MinLaunchForce: 10
-  m_MaxLaunchForce: 30
-  m_MaxChargeTime: 0.75
+  m_MinLaunchForce: 30
+  m_MaxLaunchForce: 60
+  m_MaxChargeTime: 1
   m_ShotCooldown: 1
   m_MaxDamage: 100
   m_ExplosionForce: 50
@@ -584,8 +584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerNumber: 1
-  m_Speed: 2
-  maxVelocity: 12
+  m_Speed: 12
+  acceleration: 2
   drag: 0.11
   m_TurnSpeed: 150
   m_IsDirectControl: 0
@@ -858,10 +858,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7144782785321333953, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e4abc4cc5471c44aa0b4d047130f354, type: 2}
     - target: {fileID: -4606869947750833740, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: -3267293247009464647, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e4abc4cc5471c44aa0b4d047130f354, type: 2}
     - target: {fileID: -2767421487434936234, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -874,10 +882,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1522006957048395320, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e4abc4cc5471c44aa0b4d047130f354, type: 2}
     - target: {fileID: 4193184168706059673, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4867739868979831831, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e4abc4cc5471c44aa0b4d047130f354, type: 2}
     - target: {fileID: 8836970385329486131, guid: 06cdc8d71bc5371408b340eb71884fd3, type: 3}
       propertyPath: m_Layer
       value: 9

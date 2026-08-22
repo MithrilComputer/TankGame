@@ -57,10 +57,13 @@ namespace Tanks.Complete
         }
 
 
-        private void FindAveragePosition ()
+        private void FindAveragePosition()
         {
             Vector3 averagePos = new Vector3 ();
             int numTargets = 0;
+            
+            if(m_Targets == null || m_Targets.Length == 0)
+                return;
 
             // Go through all the targets and add their positions together.
             for (int i = 0; i < m_Targets.Length; i++)

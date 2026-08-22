@@ -12,8 +12,8 @@ namespace Tanks.Complete
         [Tooltip("The player number. Without a tank selection menu, Player 1 is left keyboard control, Player 2 is right keyboard")]
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         [Tooltip("The speed in unity unit/second the tank move at")]
-        public float m_Speed = 2f;                 // How fast the tank moves forward and back.
-        public float maxVelocity = 12f;                 // The maximum speed the tank can reach
+        public float m_Speed = 12f;                 // How fast the tank moves forward and back.
+        public float acceleration = 2f;                 // The maximum speed the tank can reach
         public float drag = 0.11f;                     // The drag applied to the tank when no input is given
         [Tooltip("The speed in deg/s that tank will rotate at")]
         public float m_TurnSpeed = 150f;            // How fast the tank turns in degrees per second.
@@ -247,21 +247,27 @@ namespace Tanks.Complete
                 speedInput = m_MovementInputValue;
             }
 
-            // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-            velocity += transform.forward * speedInput * m_Speed;
-
-            if(velocity.magnitude >= maxVelocity)
+            if (m_IsComputerControlled)
             {
-                velocity = velocity.normalized * maxVelocity;
-            }
+                velocity = transform.forward * m_Speed * speedInput;
+                
+            } 
+            else
+            {
+                velocity += transform.forward * speedInput * acceleration;
 
-            velocity -= velocity * drag;
+                if (velocity.magnitude >= m_Speed)
+                {
+                    velocity = velocity.normalized * m_Speed;
+                }
+
+                velocity -= velocity * drag;
+            }
 
             // Apply this movement to the rigidbody's position.
             m_Rigidbody.linearVelocity = velocity + m_ExplosionForceValue;
             m_ExplosionForceValue = Vector3.Lerp(m_ExplosionForceValue, Vector3.zero, Time.deltaTime * 3f); // 3f = braking speed
         }
-
 
         private void Turn ()
         {

@@ -29,6 +29,10 @@ namespace Tanks.Complete
         public float m_EndDelay = 3f;               // The delay between the end of RoundPlaying and RoundEnding phases.
         public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
 
+        public AudioSource m_AudioSource;
+        public AudioClip prematchMusic;
+        public AudioClip matchMusic;
+
         [Header("Tanks Prefabs")]
         public GameObject m_Tank1Prefab;            // The Prefab used by the tank in Slot 1 of the Menu
         public GameObject m_Tank2Prefab;            // The Prefab used by the tank in Slot 2 of the Menu
@@ -95,7 +99,14 @@ namespace Tanks.Complete
             switch (m_CurrentState)
             {
                 case GameState.Game:
+                    m_AudioSource.clip = matchMusic;
+                    m_AudioSource.Play();
                     GameStart();
+                    break;
+
+                case GameState.MainMenu:
+                    m_AudioSource.clip = prematchMusic;
+                    m_AudioSource.Play();
                     break;
             }
         }
