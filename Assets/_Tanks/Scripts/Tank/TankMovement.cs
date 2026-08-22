@@ -12,11 +12,11 @@ namespace Tanks.Complete
         [Tooltip("The player number. Without a tank selection menu, Player 1 is left keyboard control, Player 2 is right keyboard")]
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         [Tooltip("The speed in unity unit/second the tank move at")]
-        public float m_Speed = 12f;                 // How fast the tank moves forward and back.
+        public float m_Speed = 2f;                 // How fast the tank moves forward and back.
         public float maxVelocity = 12f;                 // The maximum speed the tank can reach
-        public float drag = 0.5f;                     // The drag applied to the tank when no input is given
+        public float drag = 0.11f;                     // The drag applied to the tank when no input is given
         [Tooltip("The speed in deg/s that tank will rotate at")]
-        public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
+        public float m_TurnSpeed = 150f;            // How fast the tank turns in degrees per second.
         [Tooltip("If set to true, the tank auto orient and move toward the pressed direction instead of rotating on left/right and move forward on up")]
         public bool m_IsDirectControl;
         public AudioSource m_MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
